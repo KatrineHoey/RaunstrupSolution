@@ -1,0 +1,57 @@
+﻿@model Raunstrup.UI.MVC.Models.OfferUsedItem
+
+<h1>Slet</h1>
+<p class="text-danger">@ViewData["ErrorMessage"]</p>
+<h3>Er du sikker på du vil slette dette?</h3>
+
+<section>
+    <h4>Forbrugt vare på tilbud</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            ID
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class="col-sm-2">
+            Navn
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            Navn
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Item.ItemName)
+        </dd>
+        <dt class="col-sm-2">
+            Antal
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Amount)
+        </dd>
+        <dt class="col-sm-2">
+            Pris per enhed
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OfferPrice)
+        </dd>
+        <dt class="col-sm-2">
+            Måleenhed
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MeasuringUnit)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Rowversion" />
+        <input type="hidden" asp-for="OfferRefId" />
+        @*<input type="hidden" asp-for="ItemRefId" />*@
+        <input type="hidden" asp-for="EmployeeRefId" />
+        <input type="submit" value="Slet" class="btn btn-danger" /> |
+        <a asp-action="Index" asp-route-id="@Model.OfferRefId">Tilbage til listen</a>
+    </form>
+</section>

@@ -1,0 +1,69 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<h1>@ViewData["Title"]</h1>
+<section class="row">
+    <article class="col-md-4">
+        <section>
+            <form id="account" method="post">
+                <h4>Use a local account to log in.</h4>
+                <hr />
+                <span asp-validation-summary="All" class="text-danger"></span>
+                <section class="form-group">
+                    <label asp-for="Input.EmployeeNo">Medarbejdernummer</label>
+                    <input asp-for="Input.EmployeeNo" class="form-control" />
+                    <span asp-validation-for="Input.EmployeeNo" class="text-danger"></span>
+                </section>
+                <section class="form-group">
+                    <label asp-for="Input.Password">Adgangskode</label>
+                    <input asp-for="Input.Password" class="form-control" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </section>
+                <section class="form-group">
+                    <span class="checkbox">
+                        <label asp-for="Input.RememberMe">
+                            <input asp-for="Input.RememberMe" />
+                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        </label>
+                    </span>
+                </section>
+                <section class="form-group">
+                    <button type="submit" class="btn btn-primary">Log in</button>
+                </section>
+                <section class="form-group">
+                    <p>
+                        <a id="forgot-password" asp-page="./ForgotPassword">Glemt kodeord?</a>
+                    </p>
+                    <p>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Opret ny bruger</a>
+                    </p>
+                    <p>
+                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Gensend email confirmation</a>
+                    </p>
+                </section>
+            </form>
+        </section>
+        <section>
+ 
+        </section>
+    </article>
+    <section class="col-md-6 col-md-offset-2">
+        <section>
+            <h4>Log-ind informationer.</h4>
+            <section>
+                <p>Admin: <br /> Medarbejdernummer: 3 <br /> Adgangskode: ansat3</p>
+                <p>Manager: <br /> Medarbejdernummer: 2 <br /> Adgangskode: ansat2</p>
+                <p>User: <br /> Medarbejdernummer: 1 <br /> Adgangskode: ansat1</p>
+            </section>
+
+        </section>
+    </section>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

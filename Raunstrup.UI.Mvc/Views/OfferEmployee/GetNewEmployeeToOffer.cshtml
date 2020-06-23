@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Raunstrup.UI.MVC.Models.Employee>
+
+@{
+    ViewData["Title"] = "GetNewEmployeesToOffer";
+}
+
+<h1>Tilføj medarbejder til projektet</h1>
+
+<p>
+    <a asp-action="BackToOffer">Tilbage til tilbuddet</a>
+</p>
+<p>
+    <a asp-action="GetEmployeeToOffer2">Tilbage til listen</a>
+</p>
+
+@*<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Søg på navn: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+    </div>
+</form>*@
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["Name2SortParm"]">@Html.DisplayNameFor(model => model.ID)</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.Name)</a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Profession.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Specialisation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Profession.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Specialisation)
+                </td>
+                <td>
+                    <a asp-action="AddEmployeesToOffer" asp-route-id="@item.ID" asp-controller="OfferEmployee">Vælg</a>
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>

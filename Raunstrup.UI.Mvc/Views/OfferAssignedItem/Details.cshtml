@@ -1,0 +1,42 @@
+﻿@model Raunstrup.UI.MVC.Models.OfferAssignedItem
+
+<section>
+    <h4>Vare på tilbud</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            ID
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class="col-sm-2">
+            Beskrivelse
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+           Antal
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Amount)
+        </dd>
+        <dt class="col-sm-2">
+            Pris per...
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OfferPricePer)
+        </dd>
+        <dt class="col-sm-2">
+            Målt i
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MeasuringUnit)
+        </dd>
+    </dl>
+</section>
+<section>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Rediger</a> |
+    <a asp-action="Index" asp-route-id="@Model.OfferRefId">Tilbage til listen</a>
+</section>

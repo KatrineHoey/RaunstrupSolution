@@ -1,0 +1,52 @@
+﻿@model Raunstrup.UI.MVC.Models.Item
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Rediger</h1>
+
+<h4>Materiale</h4>
+<hr />
+<section class="row">
+    <article class="col-md-4">
+        <form asp-action="Edit">
+            <span asp-validation-summary="ModelOnly" class="text-danger"></span>
+            <input type="hidden" asp-for="ID" />
+            <input type="hidden" asp-for="RowVersion" />
+            <input type="hidden" asp-for="Active" />
+            <input type="hidden" asp-for="ItemNo" />
+            <section class="form-group">
+                <label asp-for="ItemName" class="control-label">Varenavn</label>
+                <input asp-for="ItemName" class="form-control" />
+                <span asp-validation-for="ItemName" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="PurchasePrice" class="control-label">Indkøbspris</label>
+                <input asp-for="PurchasePrice" class="form-control" />
+                <span asp-validation-for="PurchasePrice" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="SalePrice" class="control-label">Salgspris</label>
+                <input asp-for="SalePrice" class="form-control" />
+                <span asp-validation-for="SalePrice" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="MeasuringUnit" class="control-label">Måleenhed</label>
+                <input asp-for="MeasuringUnit" class="form-control" />
+                <span asp-validation-for="MeasuringUnit" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <input type="submit" value="Gem" class="btn btn-primary" />
+            </section>
+        </form>
+    </article>
+</section>
+
+<section>
+    <a asp-action="Index">Tilbage til listen</a>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

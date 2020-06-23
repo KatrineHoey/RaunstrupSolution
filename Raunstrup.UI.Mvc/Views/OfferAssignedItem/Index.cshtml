@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Raunstrup.UI.MVC.Models.OfferAssignedItem>
+
+<h1>Varelinjer på tilbud</h1>
+    <p>
+        <a asp-action="BackToOffer" >Tilbage til tilbuddet</a>
+    </p>
+<p>
+    <a asp-action="Create">Tilføj ny</a>
+</p>
+<p class="text-danger">@TempData["OfferAssignedItemCantBeFound"]</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Beskrivelse
+            </th>
+            <th>
+                Antal
+            </th>
+            <th>
+                Pris per...
+            </th>
+            <th>
+                Målt i
+            </th>
+            <th>
+                Total
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OfferPricePer)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MeasuringUnit)
+                </td>
+                <td>
+                    @(item.Amount * item.OfferPricePer)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Rediger</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detaljer</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Slet</a>
+                </td>
+            </tr>
+        }
+
+        <tr class="mt-4">
+            <td colspan="5">
+                <b>Total:</b>
+            <td>
+                @Model.Sum(UI => UI.Amount * UI.OfferPricePer)
+            </td>
+        </tr>
+    </tbody>
+</table>

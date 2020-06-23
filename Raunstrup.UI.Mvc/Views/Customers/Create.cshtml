@@ -1,0 +1,58 @@
+﻿@model Raunstrup.UI.MVC.Models.Customer
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Opret</h1>
+
+<h4>Kunde</h4>
+<hr />
+<section class="row">
+    <article class="col-md-4">
+        <form asp-action="Create">
+            <span asp-validation-summary="ModelOnly" class="text-danger"></span>
+            <section class="form-group">
+                <label asp-for="Name" class="control-label">Navn</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="PhoneNo" class="control-label">Telefonnummer</label>
+                <input asp-for="PhoneNo" class="form-control" />
+                <span asp-validation-for="PhoneNo" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="Email" class="control-label">Email</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="Address" class="control-label">Adresse</label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="City" class="control-label">By</label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="DiscountGroup" class="control-label">Rabatgruppe</label>
+                <select asp-for="DiscountGroup" asp-items="Model.Discounts" class="form-control" ></select>
+                <span asp-validation-for="DiscountGroup" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <input type="submit" value="Opret" class="btn btn-primary" />
+            </section>
+        </form>
+    </article>
+</section>
+
+<section>
+    <a asp-action="Index">Tilbage til listen</a>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

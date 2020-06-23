@@ -1,0 +1,44 @@
+﻿@model Raunstrup.UI.MVC.Models.OfferDriving
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Ændre i timer</h1>
+<hr />
+<section class="row">
+    <article class="col-md-4">
+        <form asp-action="Edit">
+            <span asp-validation-summary="ModelOnly" class="text-danger"></span>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Rowversion" />
+            <section class="form-group">
+                <label asp-for="OfferRefId" class="control-label">Tilbuds-ID</label>
+                <input asp-for="OfferRefId" class="form-control" readonly />
+                <span asp-validation-for="OfferRefId" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="EmployeeRefId" class="control-label">Medarbejder-ID</label>
+                <input asp-for="EmployeeRefId" class="form-control" readonly />
+                <span asp-validation-for="EmployeeRefId" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="TodaysDate" class="control-label">Dato for arbejdet</label>
+                <input type="date" asp-for="TodaysDate" class="form-control" />
+                <span asp-validation-for="TodaysDate" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <select asp-for="Price" asp-items="Model.DrivingType" class="form-control"></select>
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="Amount" class="control-label">Antal (Km)</label>
+                <input asp-for="Amount" class="form-control" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <input type="submit" value="Gem" class="btn btn-primary" />
+            </section>
+        </form>
+    </article>
+</section>

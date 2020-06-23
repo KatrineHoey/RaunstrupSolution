@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Raunstrup.UI.MVC.Models.Customer>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Alle kunder</h1>
+<p class="text-danger">@TempData["CustomerCantBeFound"]</p>
+<p>
+    <a asp-action="Create">Opret ny kunde</a>
+</p>
+
+<form asp-action="Index" method="get">
+    <section class="form-actions no-color">
+        <p>
+            Søg på navn: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+    </section>
+</form>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.Name)</a>
+        </th>
+        <th>
+            Telefonnr
+        </th>
+        <th>
+            <a asp-action="Index" asp-route-sortOrder="@ViewData["Name2SortParm"]">@Html.DisplayNameFor(model => model.Email)</a>
+        </th>
+        <th>
+           Adresse
+        </th>
+        <th>
+            By
+        </th>
+        <th>
+            Discount
+        </th>
+       
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td id="name">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiscountGroup)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID">Rediger</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Detaljer</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Slet</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

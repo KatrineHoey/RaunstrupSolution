@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Raunstrup.UI.MVC.Models.Campaign>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Alle Kampagner</h1>
+<p class="text-danger">@TempData["CampaignCantBeFound"]</p>
+<p>
+    <a asp-action="Create" asp-controller="Campaign">Opret ny Kampagne</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CampaignId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Procent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td id="name">
+                    @Html.DisplayFor(modelItem => item.CampaignId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Procent)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CampaignId" asp-controller="Campaign">Rediger</a> |
+                    <a asp-action="Details" asp-route-id="@item.CampaignId" asp-controller="Campaign">Detaljer</a> |
+                    <a asp-action="Delete" asp-route-id="@item.CampaignId" asp-controller="Campaign">Slet</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}

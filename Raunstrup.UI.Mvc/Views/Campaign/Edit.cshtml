@@ -1,0 +1,51 @@
+﻿@model Raunstrup.UI.MVC.Models.Campaign
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Rediger</h1>
+
+<h4>Kampagne</h4>
+<hr />
+<section class="row">
+    <article class="col-md-4">
+        <form asp-action="Edit" asp-controller="Campaign">
+            <span asp-validation-summary="ModelOnly" class="text-danger"></span>
+            <input type="hidden" asp-for="CampaignId" />
+            <input type="hidden" asp-for="Rowversion" />
+            <section class="form-group">
+                <label asp-for="Title" class="control-label">Titel</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="Procent" class="control-label">Procenter %</label>
+                <input asp-for="Procent" class="form-control" />
+                <span asp-validation-for="Procent" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="StartDate" class="control-label">Start-dato</label>
+                <input asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="EndDate" class="control-label">Slut-dato</label>
+                <input asp-for="EndDate" class="form-control" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <input type="submit" value="Gem" class="btn btn-primary" />
+            </section>
+        </form>
+    </article>
+</section>
+
+
+
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}

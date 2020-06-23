@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Raunstrup.UI.MVC.Models.OfferUsedItem>
+
+<h1>Forbrugte materialer på tilbud</h1>
+<p>
+    <a asp-action="BackToOffer">Tilbage til tilbuddet</a>
+</p>
+
+<p>
+    <a asp-action="Create">Tilføj ny</a>
+</p>
+<p class="text-danger">@TempData["OfferUsedItemCantBeFound"]</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Medarbejdernavn
+            </th>
+            <th>
+                Materialenavn
+            </th>
+            <th>
+                Beskrivelse
+            </th>
+            <th>
+                Antal
+            </th>
+            <th>
+                Pris per. enhed
+            </th>
+            <th>
+                Total
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Item.ItemName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OfferPrice)
+                </td>
+                <td>
+                    @(item.Amount * item.OfferPrice)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Rediger</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Slet</a>
+                </td>
+            </tr>
+        }
+
+        <tr class="mt-4">
+            <td colspan="6">
+                <b>Total:</b>
+            <td>
+                @Model.Sum(UI => UI.Amount * UI.OfferPrice)
+            </td>
+        </tr>
+    </tbody>
+</table>
+

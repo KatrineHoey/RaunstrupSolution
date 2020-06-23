@@ -1,0 +1,90 @@
+﻿@model Raunstrup.UI.MVC.Models.Employee
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Detaljer</h1>
+
+<section>
+    <h4>Medarbejder</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Cpr)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Cpr)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PhoneNo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PhoneNo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PostalCode)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PostalCode)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.City)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsProjectleader)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsProjectleader)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Profession)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Profession.Type) / @Html.DisplayFor(model => model.Profession.HourPrice) kr.
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Specialisation)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Specialisation)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+    </dl>
+</section>
+<section>
+    <a asp-action="Edit" asp-route-id="@Model.ID">Rediger</a> |
+    <a asp-action="Index">Tilbage til listen</a>
+</section>

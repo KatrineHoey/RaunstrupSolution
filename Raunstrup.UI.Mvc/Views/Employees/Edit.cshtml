@@ -1,0 +1,85 @@
+﻿@model Raunstrup.UI.MVC.Models.Employee
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Rediger</h1>
+
+<h4>Medarbejder</h4>
+<hr />
+<section class="row">
+    <article class="col-md-4">
+        <form asp-action="Edit">
+            <span asp-validation-summary="ModelOnly" class="text-danger"></span>
+            <input type="hidden" asp-for="ID" />
+            <input type="hidden" asp-for="RowVersion" />
+            <section class="form-group">
+                <label asp-for="Cpr" class="control-label">Cpr</label>
+                <input asp-for="Cpr" class="form-control" />
+                <span asp-validation-for="Cpr" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="Name" class="control-label">Navn</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="PhoneNo" class="control-label">Telefonnummer</label>
+                <input asp-for="PhoneNo" class="form-control" />
+                <span asp-validation-for="PhoneNo" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="Email" class="control-label">Email</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="Address" class="control-label">Adresse</label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="PostalCode" class="control-label">Postnummer</label>
+                <input asp-for="PostalCode" class="form-control" />
+                <span asp-validation-for="PostalCode" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="City" class="control-label">By</label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="IsProjectleader" class="control-label">Projektleder</label>
+                <input type="checkbox" asp-for="IsProjectleader" />
+                <span asp-validation-for="IsProjectleader" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="ProfessionRefID" class="control-label">Profession-ID</label>
+                <select asp-for="ProfessionRefID" asp-items="Model.Professions" class="form-control"></select>
+                <span asp-validation-for="ProfessionRefID" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="Specialisation" class="control-label">Specialisering</label>
+                <input asp-for="Specialisation" class="form-control" />
+                <span asp-validation-for="Specialisation" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="Username" class="control-label">Brugernavn</label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <input type="submit" value="Gem" class="btn btn-primary" />
+            </section>
+        </form>
+    </article>
+</section>
+
+<section>
+    <a asp-action="Index">Tilbage til listen</a>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

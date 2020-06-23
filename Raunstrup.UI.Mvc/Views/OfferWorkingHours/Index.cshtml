@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Raunstrup.UI.MVC.Models.OfferWorkingHours>
+
+    <h1>Indberet timer til tibud</h1>
+<p>
+    <a asp-action="BackToOffer">Tilbage til tilbuddet</a>
+</p>
+<p>
+    <a asp-action="Create">Indberet timer</a>
+</p>
+<p class="text-danger">@TempData["OfferWorkingHoursCantBeFound"]</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Medarbejder-ID
+            </th>
+            <th>
+                Navn
+            </th>
+            <th>
+                Dato
+            </th>
+            <th>
+                Antal
+            </th>
+            <th>
+                Timeløn
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeRefId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfWorking)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HourlyPrice)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Rediger</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Slet</a>
+            </td>
+        </tr>
+        }
+
+        <tr class="mt-4">
+            <td colspan="4">
+                <b>Total:</b>
+            <td>
+                @Model.Sum(UI => UI.Amount * UI.HourlyPrice)
+            </td>
+        </tr>
+    </tbody>
+</table>

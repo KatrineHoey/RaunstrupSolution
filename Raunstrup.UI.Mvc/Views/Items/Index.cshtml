@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Raunstrup.UI.MVC.Models.Item>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Alle materialer</h1>
+<p class="text-danger">@TempData["ItemCantBeFound"]</p>
+<p>
+    <a asp-action="Create">Opret nyt materiale</a>
+</p>
+
+<form asp-action="Index" method="get">
+    <section class="form-actions no-color">
+        <p>
+            Søg på varenavn: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+    </section>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Materiale nr
+               @* @Html.DisplayNameFor(model => model.ItemNo)*@
+            </th>
+            <th>
+                Materiale
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.ItemName)</a>
+            </th>
+            <th>
+                Indkøbspris
+                @*<a asp-action="Index" asp-route-sortOrder="@ViewData["Name2SortParm"]">@Html.DisplayNameFor(model => model.PurchasePrice)</a>*@
+            </th>
+            <th>
+                Salgspris
+                @*<a asp-action="Index" asp-route-sortOrder="@ViewData["Name2SortParm"]">@Html.DisplayNameFor(model => model.SalePrice)</a>*@
+            </th>
+            <th>
+                Måleenhed
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchasePrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SalePrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MeasuringUnit)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Rediger</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Detaljer</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Slet</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

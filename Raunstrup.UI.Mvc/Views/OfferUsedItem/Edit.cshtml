@@ -1,0 +1,55 @@
+﻿@model Raunstrup.UI.MVC.Models.OfferUsedItem
+
+<h1>Rediger</h1>
+
+<h4>Forbrugt vare på tilbud</h4>
+<hr />
+<section class="row">
+    <article class="col-md-4">
+        <form asp-action="Edit">
+            <span asp-validation-summary="ModelOnly" class="text-danger"></span>
+            <input type="hidden" asp-for="Rowversion" />
+            <section class="form-group">
+                <label asp-for="OfferRefId" class="control-label">Tilbuds-ID</label>
+                <input asp-for="OfferRefId" class="form-control" readonly />
+                <span asp-validation-for="OfferRefId" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="EmployeeRefId" class="control-label">Medarbejder ID</label>
+                <input asp-for="EmployeeRefId" class="form-control" readonly />
+                <span asp-validation-for="EmployeeRefId" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="Name" class="control-label">Hvis der ikke er tale om en materiale fra liste, skriv her</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="Amount" class="control-label">Antal</label>
+                <input asp-for="Amount" class="form-control" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="OfferPrice" class="control-label">Pris pr. enhed</label>
+                <input asp-for="OfferPrice" class="form-control" />
+                <span asp-validation-for="OfferPrice" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="MeasuringUnit" class="control-label">Måleenhed</label>
+                <input asp-for="MeasuringUnit" class="form-control" />
+                <span asp-validation-for="MeasuringUnit" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <input type="submit" value="Gem" class="btn btn-primary" />
+            </section>
+        </form>
+    </article>
+</section>
+
+<section>
+    <a asp-action="Index" asp-route-id="@Model.OfferRefId">Tilbage til listen</a>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

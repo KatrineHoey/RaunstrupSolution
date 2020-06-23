@@ -1,0 +1,76 @@
+﻿@model Raunstrup.UI.MVC.Models.Offer
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Rediger</h1>
+
+<h4>Tilbud</h4>
+<hr />
+<section class="row">
+    <article class="col-md-4">
+        <form asp-action="Edit">
+            <span asp-validation-summary="ModelOnly" class="text-danger"></span>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Rowversion" />
+            <input type="hidden" asp-for="ProjectleaderRefId" />
+            <input type="hidden" asp-for="TotalPrice" />
+            <input type="hidden" asp-for="DiscountProcent" />
+            <input type="hidden" asp-for="TotalPriceWithDiscount" />
+            <input type="hidden" asp-for="CustomerId" />
+            <input type="hidden" asp-for="AssignedItems" />
+            <input type="hidden" asp-for="UsedItems" />
+            <input type="hidden" asp-for="WorkingHours" />
+            <input type="hidden" asp-for="ProjectDrivings" />
+            <input type="hidden" asp-for="ProjectEmployees" />
+
+            <section class="form-group">
+                <label asp-for="WorkingTitle" class="control-label">Projektnavn</label>
+                <input asp-for="WorkingTitle" class="form-control" />
+                <span asp-validation-for="WorkingTitle" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="StartDate" class="control-label">Projektstart</label>
+                <input type="date" asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="EndDate" class="control-label">Projektslutning</label>
+                <input type="date" asp-for="EndDate" class="form-control" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="Description" class="control-label">Beskrivelse</label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </section>
+            <section class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsAccepted" /> @Html.DisplayNameFor(model => model.IsAccepted)
+                </label>
+            </section>
+            <section class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="PayForUsedItems" /> Betal for forbrug
+                </label>
+            </section>
+            <section class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsDone" /> @Html.DisplayNameFor(model => model.IsDone)
+                </label>
+            </section>
+            <section class="form-group">
+                <input type="submit" value="Gem" class="btn btn-primary" />
+            </section>
+        </form>
+    </article>
+</section>
+
+<section>
+    <a asp-action="Index">Tilbage til listen</a>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

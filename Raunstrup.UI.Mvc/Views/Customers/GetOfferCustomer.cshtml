@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Raunstrup.UI.MVC.Models.Customer>
+@{
+    ViewData["Title"] = "Tilknytte en kunde på tilbud";
+}
+<p>
+    <a asp-action="BackToOffer">Tilbage til tilbuddet</a>
+</p>
+
+<h1>Vælg en kunde</h1>
+<form asp-action="GetOfferCustomer" method="get">
+    <section class="form-actions no-color">
+        <p>
+            Søg på navn: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" />
+        </p>
+    </section>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>navn</th>
+            <th>Adresse</th>
+            <th>Telefonnummer</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.PhoneNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Email)
+                </td>
+                <td id="Tilknyt">
+                    <a asp-action="GetCustomerToOffer" asp-route-id="@item.ID" asp-controller="Customers">Tilknyt</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

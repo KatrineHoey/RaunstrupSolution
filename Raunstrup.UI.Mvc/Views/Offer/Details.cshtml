@@ -1,0 +1,373 @@
+﻿@model Raunstrup.UI.MVC.Models.Offer
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>
+        Detaljer
+</h1>
+<h4>@Html.DisplayFor(model => model.WorkingTitle)</h4>
+<hr />
+<dl class="row">
+    <dt class="col-sm-3">
+        Projektstart
+    </dt>
+    <dd class="col-sm-9">
+        @Html.DisplayFor(model => model.StartDate)
+    </dd>
+    <dt class="col-sm-3">
+        Projektslutning
+    </dt>
+    <dd class="col-sm-9">
+        @Html.DisplayFor(model => model.EndDate)
+    </dd>
+    <dt class="col-sm-3">
+        Beskrivelse
+    </dt>
+    <dd class="col-sm-9">
+        @Html.DisplayFor(model => model.Description)
+    </dd>
+    <dt class="col-sm-3">
+        Kundenavn
+    </dt>
+    <dd class="col-sm-2">
+        @Html.DisplayFor(model => model.Customer.Name)
+
+    </dd>
+    <dd class="col-sm-7">
+        <a id="kunde" class=" " asp-action="GetOfferCustomer" asp-route-id="@Model.Id" asp-controller="Customers">Tilknyt Kunde</a>
+    </dd>
+    <dt class="col-sm-3">
+        Kundens tlf
+    </dt>
+    <dd class="col-sm-9">
+        @Html.DisplayFor(model => model.Customer.PhoneNo)
+    </dd>
+
+    <dt class="col-sm-3">
+        Samlet Pris
+    </dt>
+    <dd class="col-sm-9">
+        @Html.DisplayFor(model => model.TotalPrice)
+
+    </dd>
+    <dt class="col-sm-3">
+        Rabat
+    </dt>
+    <dd class="col-sm-9">
+        @Html.DisplayFor(model => model.DiscountProcent)
+
+    </dd>
+    <dt class="col-sm-3">
+        Samlet Pris inkl. rabat
+    </dt>
+    <dd class="col-sm-2">
+        @Html.DisplayFor(model => model.TotalPriceWithDiscount)
+
+    </dd>
+    <dd class="col-sm-7">
+        <a class=" " asp-action="AddDiscountToOffer" asp-route-id="@Model.Id" asp-controller="Offer">Find bedste rabat</a>
+    </dd>
+    <dt class="col-sm-3">
+        Faktiske forbrug
+    </dt>
+    <dd class="col-sm-9">
+        @(Model.UsedItems.Sum(UI=>UI.Amount*UI.OfferPrice)+Model.WorkingHours.Sum(UI=>UI.Amount*UI.HourlyPrice)+Model.ProjectDrivings.Sum(UI=>UI.Amount*Convert.ToDecimal(UI.Price)))
+    </dd>
+    <dt class="col-sm-3">
+        Betal for forbrug
+    </dt>
+    <dd class="col-sm-9">
+        @Html.DisplayFor(model => model.PayForUsedItems)
+    </dd>
+    <dt class="col-sm-3">
+        Kundeaccept
+    </dt>
+    <dd class="col-sm-9">
+        @Html.DisplayFor(model => model.IsAccepted)
+    </dd>
+    <dt class="col-sm-3">
+        Færdigt
+    </dt>
+    <dd class="col-sm-9">
+        @Html.DisplayFor(model => model.IsDone)
+    </dd>
+    <dt class="col-sm-3">
+        Projektleder:
+    </dt>
+    <dd class="col-sm-2">
+        @Html.DisplayFor(model => model.Projectleader.Name)
+    </dd>
+    <dd class="col-sm-7">
+        <a class="" asp-action="GetProjectLeaderToOffer" asp-route-id="@Model.Id" asp-controller="Employees">Tilknyt projektleder</a>
+    </dd>
+</dl>
+
+
+
+
+
+<section class="container">
+    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+    {
+    <section class="row">
+        <a class="btn btn-warning col m-2" asp-action="PrintAssignedOfferToPdf" asp-route-id="@Model.Id" asp-controller="Offer">Udskriv anslået forbrug til teksfil</a>
+        <a class="btn btn-warning col m-2" asp-action="PrintUsedOfferToPdf" asp-route-id="@Model.Id" asp-controller="Offer">Udskriv forbrug til teksfil</a>
+
+
+    </section>
+        <section class="row">        
+            <a class="btn btn-primary col m-2" asp-action="GetEmployeesToOffer" asp-route-id="@Model.Id" asp-controller="OfferEmployee">Tilknyt medarbejdere</a>
+            <a class="btn btn-primary col m-2" asp-action="Index" asp-route-id="@Model.Id" asp-controller="OfferAssignedItem">Anslå materialer</a>
+        </section>
+    }
+    <section class="row">
+        <a class="btn btn-primary col m-2" asp-action="Index" asp-route-id="@Model.Id" asp-controller="OfferDriving">Indberet kørsel</a>
+
+        <a class="btn btn-primary col m-2" asp-action="Index" asp-route-id="@Model.Id" asp-controller="OfferWorkingHours">Indberet timer</a>
+
+        <a class="btn btn-primary col m-2" asp-action="Index" asp-route-id="@Model.Id" asp-controller="OfferUsedItem">Indberet materialer</a>
+    </section>
+</section>
+
+<br />
+<br />
+
+
+<section class="tabs">
+    <input type="radio" name="tabs" id="tabone" checked="checked">
+    <label for="tabone">Forventet</label>
+    <content class="tab">
+        <h3>Materialer - forventet forbrug</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Materiale/Timer/Kørsel
+                    </th>
+                    <th>
+                        Antal
+                    </th>
+                    <th>
+                        Pris
+                    </th>
+                    <th>
+                        Måleenhed
+                    </th>
+                    <th>
+                        Total
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.AssignedItems)
+                {
+                    <tr>
+                        <td>
+                            @item.Name
+                        </td>
+                        <td>
+                            @item.Amount
+                        </td>
+                        <td>
+                            @item.OfferPricePer
+                        </td>
+                        <td>
+                            @item.MeasuringUnit
+                        </td>
+                        <td>
+                            @(item.Amount * item.OfferPricePer)
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="4">
+                        <b>Total:</b>
+                    <td>
+                        @Model.AssignedItems.Sum(UI => UI.Amount * UI.OfferPricePer)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </content>
+
+    <input type="radio" name="tabs" id="tabtwo">
+    <label for="tabtwo">Forbrugt</label>
+    <content class="tab">
+
+        <h3>Materialer brugt</h3>
+        <table class="table">
+            <thead>
+                <tr class="row justify-content-between">
+                    <th class="col">
+                        Medarbejder
+                    </th>
+                    <th class="col">
+                        Beskrivelse
+                    </th>
+                    <th class="col">
+                        Antal
+                    </th>
+                    <th class="col">
+                        Pris per
+                    </th>
+                    <th class="col">
+                        Måleenhed
+                    </th>
+                    <th class="col-2">
+                        Total
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.UsedItems)
+                {
+                    <tr class="row justify-content-between">
+                        <td class="col">
+                            @item.Employee.Name
+                        </td>
+                        <td class="col">
+                            @item.Name
+                        </td>
+                        <td class="col">
+                            @item.Amount
+                        </td>
+                        <td class="col">
+                            @item.OfferPrice
+                        </td>
+                        <td class="col">
+                            @item.MeasuringUnit
+                        </td>
+                        <td class="col-2">
+                            @(item.Amount * Convert.ToDecimal(item.OfferPrice))
+                        </td>
+                    </tr>
+                }
+                <tr class="row justify-content-between">
+                    <td  class="col-1">
+                        <b>Total:</b>
+                    <td class="col-2">
+                        @Model.UsedItems.Sum(UI => UI.Amount * Convert.ToDecimal(UI.OfferPrice))
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Arbejdstimer brugt</h3>
+        <table class="table">
+            <thead>
+                <tr class="row justify-content-between">
+                    <th class="col">
+                        Medarbejder
+                    </th>
+                    <th class="col">
+                        Timer arbejdet
+                    </th>
+                    <th class="col">
+                        Timepris
+                    </th>
+                    <th class="col-2">
+                        Total
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.WorkingHours)
+                {
+                <tr class="row justify-content-between">
+                    <td class="col">
+                        @item.Employee.Name
+                    </td>
+                    <td class="col">
+                        @item.Amount
+                    </td>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <td class="col">
+                            @item.HourlyPrice
+                        </td>
+                        <td class="col-2">
+                            @(item.Amount * item.HourlyPrice)
+                        </td>
+                    }
+                </tr>
+                }
+                <tr class="row  justify-content-between">
+                    <td class="col-1">
+                        <b>Total:</b>
+                    <td class="col-2">
+                        @Model.WorkingHours.Sum(UI => UI.Amount * UI.HourlyPrice)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <h3>Kørsel brugt</h3>
+        <table class="table">
+            <thead>
+                <tr class="row justify-content-between">
+                    <th class="col">
+                        Navn
+                    </th>
+                    <th class="col">
+                        Antal
+                    </th>
+                    <th class="col">
+                        Pris
+                    </th>
+                    <th class="col-2">
+                        Total
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ProjectDrivings)
+                {
+                <tr class="row justify-content-between">
+                    <td class="col">
+                        @item.Employee.Name
+                    </td>
+                    <td class="col">
+                        @item.Amount
+                    </td>
+                    <td class="col">
+                        @item.Price
+                    </td>
+                    <td class="col-2">
+                        @(item.Amount * Convert.ToDecimal(item.Price))
+                    </td>
+                </tr>
+                }
+                <tr class="row justify-content-between">
+                    <td class="col-1">
+                        <b>Total:</b>
+                    <td class="col-2">
+                        @Model.ProjectDrivings.Sum(UI => UI.Amount * Convert.ToDecimal(UI.Price))
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <h3>Total i alt for forbrugt:</h3>
+        <table class="table">
+            <thead>
+
+            </thead>
+            <tbody>
+                <tr class="row justify-content-between">
+                    <td class="col-1">
+                        <b>Total:</b>
+                    <td class="col-2">
+                        @(Model.UsedItems.Sum(UI=>UI.Amount*UI.OfferPrice)+Model.WorkingHours.Sum(UI=>UI.Amount*UI.HourlyPrice)+Model.ProjectDrivings.Sum(UI=>UI.Amount*Convert.ToDecimal(UI.Price)))
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </content>
+
+
+</section>
+

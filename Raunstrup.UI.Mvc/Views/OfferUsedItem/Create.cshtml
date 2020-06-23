@@ -1,0 +1,119 @@
+﻿@model Raunstrup.UI.MVC.Models.OfferUsedItem
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h4>Forbrugte materialer på tilbud</h4>
+<hr />
+<section class="row">
+    <article class="col-md-4">
+        <form asp-controller="OfferUsedItem" asp-action="Create">
+            <span asp-validation-summary="ModelOnly" class="text-danger"></span>
+            <input type="hidden" asp-for="Rowversion" />
+            <section class="form-group">
+                <label asp-for="OfferRefId" class="control-label">Tilbuds-ID</label>
+                <input asp-for="OfferRefId" class="form-control" readonly />
+                <span asp-validation-for="OfferRefId" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="EmployeeRefId" class="control-label">Medarbejder ID</label>
+                <input asp-for="EmployeeRefId" class="form-control" readonly />
+                <span asp-validation-for="EmployeeRefId" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="Name" class="control-label">Materialenavn</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="Amount" class="control-label">Antal</label>
+                <input asp-for="Amount" class="form-control" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="OfferPrice" class="control-label">Pris per enhed</label>
+                <input asp-for="OfferPrice" class="form-control" />
+                <span asp-validation-for="OfferPrice" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="MeasuringUnit" class="control-label">Måleenhed</label>
+                <input asp-for="MeasuringUnit" class="form-control" />
+                <span asp-validation-for="MeasuringUnit" class="text-danger"></span>
+            </section>
+            <section class="form-group">
+                <input type="submit" value="Tilføj" class="btn btn-primary" />
+            </section>
+        </form>
+    </article>
+</section>
+
+<section>
+    <a asp-action="Index" asp-route-id="@Model.OfferRefId">Tilbage til listen</a>
+</section>
+
+<h1>Alle materialer</h1>
+<p class="text-danger">@TempData["ItemCantBeFound"]</p>
+
+
+
+<form asp-action="Create" method="get">
+    <section class="form-actions no-color">
+        <p>
+            Søg på varenavn: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Søg" class="btn btn-default btn-primary" />
+
+        </p>
+    </section>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Varenummer
+            </th>
+            <th>
+                Varenavn
+            </th>
+            <th>
+                Indkøbspris
+            </th>
+            <th>
+                Salgspris
+            </th>
+            <th>
+                Måleenhed
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.AllItems)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PurchasePrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SalePrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MeasuringUnit)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

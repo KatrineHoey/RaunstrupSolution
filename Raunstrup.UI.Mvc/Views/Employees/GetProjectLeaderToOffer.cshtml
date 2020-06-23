@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Raunstrup.UI.MVC.Models.Employee>
+@{
+    ViewData["Title"] = "GetProjectLeaderToOffer";
+}
+
+    <p>
+        <a asp-action="BackToOffer">Tilbage til tilbuddet</a>
+    </p>
+
+<h1>Vælg en projektleder</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Navn</th>
+            <th>Telefon</th>
+            <th>Profession</th>
+            <th>Specialist</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.PhoneNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Profession.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Specialisation)
+                </td>
+                <td>
+                    <a asp-action="GetOfferProjectLeader" asp-route-id="@item.ID" asp-controller="Employees">Vælg</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Raunstrup.UI.MVC.Models.Offer>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <h1>
+        <p id="page">
+            Alle tilbud
+
+        </p>
+    </h1>
+
+@if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+{
+    <p>
+        <a asp-action="Create">Opret nyt tilbud</a>
+    </p>
+
+}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.WorkingTitle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EndDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TotalPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsAccepted)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsDone)
+                </th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var offer in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => offer.WorkingTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => offer.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => offer.EndDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => offer.TotalPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => offer.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => offer.IsAccepted)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => offer.IsDone)
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@offer.Id">Detaljer</a> <span>|</span>
+                        @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                        {
+                          <a asp-action="Edit" asp-route-id="@offer.Id">Rediger</a> <span>|</span>
+                          <a asp-action="Delete" asp-route-id="@offer.Id">Slet</a>
+                        }
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Raunstrup.UI.MVC.Models.Employee>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Alle medarbejdere</h1>
+<p class="text-danger">@TempData["EmployeeCantBeFound"]</p>
+<p>
+    <a asp-action="Create">Opret ny medarbejder</a>
+</p>
+
+<form asp-action="Index" method="get">
+    <section class="form-actions no-color">
+        <p>
+            Søg på navn: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Søg kunder" class="btn btn-default" /> |
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+    </section>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["Name2SortParm"]">@Html.DisplayNameFor(model => model.ID)</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.Name)</a>
+            </th>
+            <th>
+                Telefonnr
+            </th>
+            <th>
+                Profession
+            </th>
+            <th>
+                Speciale
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Profession.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Specialisation)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Rediger</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Detaljer</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Anonymiser</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
